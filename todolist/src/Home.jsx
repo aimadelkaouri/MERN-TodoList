@@ -11,6 +11,18 @@ function Home(){
         .catch(err => console.log(err))
 
     }, [])
+
+    const handlEdit = (id) => {
+        axios.put('http://localhost:3001/update/' +id)
+        .then(result => console.log(result.data))
+        .catch(err => console.log(err))
+    }
+
+    const handeldelete = (id) =>{
+        axios.delete('http://localhost:3001/delete/' +id)
+        .then(result => console.log(result.data))
+        .catch(err => console.log(err))
+    }
     return (
         <div className="home">
             <h2>Todo List</h2>
@@ -21,12 +33,14 @@ function Home(){
                 <div><h2>No Records</h2></div> :
                 todos.map(todo => (
                     <div className="task"> 
-                        <div className="checkbox" onClick={handlEdit}>
-                            <BsCircleFill className='icon' />
-                            <p>{todo.task}</p>
+                        <div className="checkbox" onClick={ () => handlEdit(todo._id)}>
+                            { todo.done ? <BsFillCheckcircleFill className='icon' />
+                            :  <BsCircleFill className='icon' />}
+                            
+                            <p className={todo.done ? "line_through" : ""}>{todo.task}</p>
                         </div>
                         <div>
-                            <span><BsFillTrashFill className='icon'/></span>
+                            <span><BsFillTrashFill className='icon' onClick={ ()=> handeldelete(todo._id)}/></span>
                         </div>
                     </div>
                 ))
