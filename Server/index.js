@@ -9,7 +9,7 @@ app.use(cors())
 app.use(express.json())
 
 
-mongoose.connect('mongodb://localhost:27017/test')
+mongoose.connect('mongodb+srv://aimadelkaouri:aimad@cluster0.pzv5p.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0/test')
 
 app.get('/get', (req,res) => {
     TodoModel.find()
@@ -26,7 +26,7 @@ app.delete('/delete/:id', (req,res) => {
 })
 
 
-app.update('/update/:id', (req,res) => {
+app.put('/update/:id', (req,res) => {
     const {id} = req.params;
     TodoModel.findByIdAndUpdate({_id: id}, {done: true})
     .then(result => res.json(result))
